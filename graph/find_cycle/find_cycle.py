@@ -3,8 +3,9 @@
 # graph[i]为i节点可以到达的所有节点
 def find_cycle(graph: list[list[int]]):
     n = len(graph)
+    # 三色标记法: 0-未访问，1-正在访问，2-访问过，且不存在环
     flags = [0] * n
-    
+
     def dfs(x):
         if flags[x] > 0:
             return flags[x] == 2

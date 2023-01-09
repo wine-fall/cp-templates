@@ -7,6 +7,7 @@ def topo_sort(graph: list[list[int]],):
     for y, x in graph:
         adj[x].append(y)
 
+    # 三色标记法: 0-未访问，1-正在访问，2-访问过，且不存在环
     flags = [0] * n
     ret = []
 
