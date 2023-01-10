@@ -1,6 +1,9 @@
 # 拓扑排序
 # 参考资料: https://oi-wiki.org/graph/topo/
 # leetcode题目: 210-课程表 II
+
+from __future__ import annotations
+from collections import defaultdict
 def topo_sort(graph: list[list[int]],):
     n = len(graph)
     adj = defaultdict(list)
