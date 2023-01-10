@@ -12,12 +12,22 @@ class UnionFind:
     def union(self, node1: int, node2: int):
         self.ancestor[self.find(node1)] = self.find(node2)
 
+
 # 并查集具体操作
 # 1. 断开连接
-uf.ancestor[x] = x
-uf.ancestor[y] = y
+def disconnect(uf: UnionFind, x: int):
+    uf.ancestor[x] = x
 
 # 2. 统计连接块个数
-for i in range(m):
-    if uf.ancestor[i] == i:
-        cnt += 1
+def countBlock(uf: UnionFind, n: int):
+    for i in range(n):
+        if uf.ancestor[i] == i:
+            cnt += 1
+
+def main(n: int): 
+    uf = UnionFind(n)
+    disconnect(uf, 2)
+    countBlock(uf, n)
+
+main(5) # test
+
