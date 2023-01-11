@@ -60,7 +60,7 @@ def dp(n: int, subsets: list[int]) -> int:
         j = i
         while j:
             if j in subsets:
-                # 状态转移：i ^ j 表示状态 j 的任务 - 状态 i 的任务
+                # 状态转移：i ^ j 表示状态 i 的任务 - 状态 j 的任务
                 f[i] = min(f[i], f[i ^ j] + 1)
             # 快速遍历子集
             j = (j - 1) & i
