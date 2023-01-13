@@ -21,12 +21,10 @@ const batchCountNumberOfOne = (n) => {
 const countNumberOfOne = state => {
     // 其他语言可能有一些工具函数
     let cnt = 0;
-    let mask = 1;
     while (state !== 0) {
-        if (state & mask) {
+        if (state & 1) {
             cnt++;
         }
-        mask = mask << 1;
         state = state >> 1;
     }
     return cnt;
