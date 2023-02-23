@@ -47,7 +47,8 @@ def check_continue_bit(x):
 # n: 任务数
 # subsets: 可在1个单位时间内完成的任务
 # f[i]表示 完成i状态对应任务 的最少时间
-def dp(n: int, subsets: list[int]) -> int:
+from typing import List
+def dp(n: int, subsets: List[int]) -> int:
     m = 1 << n
     f = [float("inf")] * m
     f[0] = 0
@@ -66,3 +67,43 @@ def dp(n: int, subsets: list[int]) -> int:
             j = (j - 1) & i
 
     return f[-1]
+
+# 题号：2572-count-the-number-of-square-free-subsets
+from typing import List
+from collections import Counter
+class Solution:
+    def squareFreeSubsets(self, nums: List[int]) -> int:
+        PRIMES = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+        MOD = 10 ** 9 + 7
+        num_mask = [0] * 31
+
+        # 采用二进制存储每个无平方因子数所包含的质数
+        for i in range(2, 31):
+            for j, prime in enumerate(PRIMES):
+                if i % prime == 0:
+                    if i % (prime * prime) == 0:
+                        num_mask[i] = -1
+                        break
+                    num_mask[i] |= 1 << j
+
+        n = len(PRIMES)
+        m = 1 << n
+        
+        # 统计每种组合对应的方案数
+        f = [0] * m
+        f[0] = 1
+        cnt = Counter(nums)
+
+        for i, c in cnt.items():
+            mask = num_mask[i]
+            if mask <= 0:
+                continue
+            # 取补集
+            other = (m - 1) ^ mask
+            j = other
+            while True:
+                f[j | mask] = (f[j | mask] + f[j] * c) % MOD
+                j = (j - 1) & other # 当j为-1时，补码全为1，与other进行与运算得到other
+
+
+        return (sum(f) * pow(2, cnt[1], MOD) - 1) % MOD
