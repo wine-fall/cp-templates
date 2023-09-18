@@ -73,7 +73,7 @@ var findTargetSumWays_2 = function (nums, target) {
     }
     const k = (sum - target) / 2;
     // f[i][j] 表示选到第 i 个数，和为 j 的方案数
-    const f = Array.from({length: n}).map(() => Array(k + 1).fill(0));
+    const f = Array.from({length: n + 1}).map(() => Array(k + 1).fill(0));
     // 合为 0 的方案数为 1（什么都不选）
     f[0][0] = 1;
     if (nums[0] <= k) {
