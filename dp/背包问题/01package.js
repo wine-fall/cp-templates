@@ -76,17 +76,13 @@ var findTargetSumWays_2 = function (nums, target) {
     const f = Array.from({length: n + 1}).map(() => Array(k + 1).fill(0));
     // 合为 0 的方案数为 1（什么都不选）
     f[0][0] = 1;
-    if (nums[0] <= k) {
-        // 把选第一个数的 case 初始化，注意这里要 += 1 而不是 = 1，考虑某些边界 case
-        f[0][nums[0]] += 1;
-    }
     // 这里和 dfs 的逻辑一致
-    for (let i = 1; i < n; i++) {
+    for (let i = 1; i <= n; i++) {
         for (let j = k; j >= 0; j--) {
             if (j < nums[i]) {
                 f[i][j] = f[i - 1][j];
             } else {
-                f[i][j] = f[i - 1][j] + f[i - 1][j - nums[i]];
+                f[i][j] = f[i - 1][j] + f[i - 1][j - nums[i - 1]];
             }
         }
     }
