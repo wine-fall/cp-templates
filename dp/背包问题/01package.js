@@ -86,7 +86,7 @@ var findTargetSumWays_2 = function (nums, target) {
             }
         }
     }
-    return f[n - 1][k];
+    return f[n][k];
 };
 
 /**
