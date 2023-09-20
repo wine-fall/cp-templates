@@ -79,7 +79,7 @@ var findTargetSumWays_2 = function (nums, target) {
     // 这里和 dfs 的逻辑一致
     for (let i = 1; i <= n; i++) {
         for (let j = k; j >= 0; j--) {
-            if (j < nums[i]) {
+            if (j < nums[i - 1]) {
                 f[i][j] = f[i - 1][j];
             } else {
                 f[i][j] = f[i - 1][j] + f[i - 1][j - nums[i - 1]];
