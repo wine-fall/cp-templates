@@ -7,7 +7,7 @@ const main = () => {
     const output = {};
     const transCode2Snippet = dir => {
         const {ext, name} = path.parse(dir);
-        if (ext !== '.py') {
+        if (ext !== '.js') {
             return;
         }
         const content = fs.readFileSync(dir, 'utf-8');
