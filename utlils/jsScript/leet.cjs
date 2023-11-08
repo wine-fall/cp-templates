@@ -32,7 +32,9 @@ for (let i = 0; i < input.length; i++) {
 
 questionPromise('number of the question: ', (questionNo) => {
     console.log(`I'm going to create ${questionNo}.js...`);
-    fs.writeFile(`${questionNo}.js`, defautContent, (err) => {
+    console.log('The command is running on the' + process.env.INIT_CWD);
+
+    fs.writeFile(process.env.INIT_CWD + `/${questionNo}.js`, defautContent, (err) => {
         if (err) {
             console.error(err);
             return;
