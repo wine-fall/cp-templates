@@ -13,14 +13,14 @@ class SegmentTree {
 
     /**
      * @description o 代表树的节点；l，r 代表区间的左右端点；index 代表区间的端点；val 则是增加的值。
-     *              也就是给所有包括 index 的区间都加上 val。同时也可以操作最小值。
+     *              也就是操作『所有包括 index 的区间』
      * @param {number} o 
      * @param {number} l 
      * @param {number} r 
      * @param {number} index 
      * @param {number} val 
      */
-    add(o, l, r, index, val) {
+    update(o, l, r, index, val) {
         if (l >= r) {
             this.sum[o] += val;
             /**
@@ -32,9 +32,9 @@ class SegmentTree {
         }
         const mid = Math.floor((l + r) / 2);
         if (index <= mid) {
-            this.add(o * 2, l, mid, index, val);
+            this.update(o * 2, l, mid, index, val);
         } else {
-            this.add(o * 2 + 1, mid + 1, r, index, val);
+            this.update(o * 2 + 1, mid + 1, r, index, val);
         }
         this.sum[o] = this.sum[o * 2] + this.sum[o * 2 + 1];
         this.min[o] = Math.min(this.min[o * 2], this.min[o * 2 + 1]);
@@ -118,7 +118,7 @@ BookMyShow.prototype.gather = function(k, maxRow) {
         return [];
     }
     const seats = this.segmentTree.querrySum(1, 1, this.n, idx, idx);
-    this.segmentTree.add(1, 1, this.n, idx, k);
+    this.segmentTree.update(1, 1, this.n, idx, k);
     return [idx - 1, seats];
 };
 
@@ -136,9 +136,9 @@ BookMyShow.prototype.scatter = function(k, maxRow) {
     while (k > 0) {
         const val = this.m - this.segmentTree.querrySum(1, 1, this.n, idx, idx);
         if (k > val) {
-            this.segmentTree.add(1, 1, this.n, idx, val);
+            this.segmentTree.update(1, 1, this.n, idx, val);
         } else {
-            this.segmentTree.add(1, 1, this.n, idx, k);
+            this.segmentTree.update(1, 1, this.n, idx, k);
         }
         k -= val;
         idx++;
