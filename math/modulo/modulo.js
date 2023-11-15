@@ -25,13 +25,11 @@ const power = (a, n, mod) => {
  * @returns {number}
  */
 const product = (a, b, mod) => {
-    const ay = a % 1e5, ax = Math.floor(a / 1e5);
-    const by = b % 1e5, bx = Math.floor(b / 1e5);
-    let result = 0;
-    result += ay * by;
-    result += (ax * by + ay * bx) * 1e5;
-    result += ax * bx * (1e10 % mod);
-    return result % mod;
+    a = BigInt(a);
+    b = BigInt(b);
+    mod = BigInt(mod);
+    const ret = (a % mod * b % mod) % mod;
+    return Number(ret);
 };
 /**
  * @description 分数求模，分数为 (a/b)，也即求 (a/b)%mod
