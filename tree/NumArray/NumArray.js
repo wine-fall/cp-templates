@@ -9,10 +9,14 @@ class NumArray {
      */
     constructor(nums) {
         const n = nums.length;
-        this.diff = Array(n).fill(0);
+        this.nums = nums;
         this.tree = Array(n + 1).fill(0);
-        for (let i = 0; i < n; i++) {
-            this.update(i, nums[i]);
+        for (let i = 1; i <= n; i++) {
+            this.tree[i] += this.nums[i - 1];
+            const nxt = i + this.lowbit(i);
+            if (nxt <= n) {
+                this.tree[nxt] += this.tree[i];
+            }
         }
     }
 
@@ -30,8 +34,8 @@ class NumArray {
      * @param {number} val 
      */
     update(idx, val) {
-        const tmp = val - this.diff[idx];
-        this.diff[idx] += tmp;
+        const tmp = val - this.nums[idx];
+        this.nums[idx] = val;
         let i = idx + 1;
         while (i < this.tree.length) {
             this.tree[i] += tmp;
