@@ -1,3 +1,8 @@
+/**
+ * 基本线段树
+ * t2286 音乐会
+ */
+
 class SegmentTree {
     /**
      * @param {number} n 
