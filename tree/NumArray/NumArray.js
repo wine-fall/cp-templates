@@ -3,7 +3,7 @@
  * t307
  */
 
-class NumArray {
+class BIT {
     /**
      * @param {number[]} nums 
      */
@@ -22,7 +22,7 @@ class NumArray {
 
     /**
      * @param {number} num 
-     * @returns 
+     * @returns {number}
      */
     lowbit(num) {
         return num & -num;
