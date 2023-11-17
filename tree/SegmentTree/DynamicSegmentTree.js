@@ -9,8 +9,8 @@ class TreeNode {
 
 /**
  * 本质和基本线段树一致，只不过将数组转化成树，适用于边界很大的情况（例如2736，边界是1e9）
- * 需要注意的是：update 操作的出口是 l >= r
- *             而 query 操作的出口是 L <= l && r <= R
+ * 需要注意的是：单点 操作的出口是 l >= r
+ *             而 范围 操作的出口是 L <= l && r <= R
  */
 class SegmentTree {
     constructor(n) {
