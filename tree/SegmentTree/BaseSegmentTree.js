@@ -11,7 +11,7 @@ class SegmentTree {
     constructor(n, m) {
         this.n = n;
         this.m = m;
-        const size = this.n.toString(2).length;
+        const size = this.n.toString(2).length + 1;
         this.sum = Array(1 << size).fill(0);
         this.min = Array(1 << size).fill(0);
     }
@@ -82,7 +82,7 @@ class SegmentTree {
      * @param {number} val 
      */
     index(o, l, r, L, R, val) {
-        if (this.min[val] > val) {
+        if (this.min[o] > val) {
             return -1;
         }
         if (l >= r) {
