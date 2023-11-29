@@ -44,15 +44,15 @@ const solve = () => {
 `;
 
 questionPromise('number of the question: ', (questionNo) => {
-    console.log(`I'm going to create ${questionNo}.js...`);
+    console.log(`I'm going to create ${questionNo}.cjs...`);
     console.log('The command is running on the' + process.env.INIT_CWD);
 
-    fs.writeFile(process.env.INIT_CWD + `/${questionNo}.js`, defautContent, (err) => {
+    fs.writeFile(process.env.INIT_CWD + `/${questionNo}.cjs`, defautContent, (err) => {
         if (err) {
             console.error(err);
             return;
         }
-        console.log(`${questionNo}.js has been created!`);
+        console.log(`${questionNo}.cjs has been created!`);
     });
 }).then((readline) => {
     readline.close();
