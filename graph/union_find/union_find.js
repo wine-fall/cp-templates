@@ -1,4 +1,4 @@
-class UionFind {
+class UnionFind {
     constructor(n) {
         this.parent = Array.from({length: n}).map((_, i) => i);
     }
@@ -12,7 +12,7 @@ class UionFind {
         return x;
     }
 
-    uion(x, y) {
+    union(x, y) {
         const px = this.find(x);
         const py = this.find(y);
         this.parent[px] = py;
