@@ -6,7 +6,8 @@
 const getPrimeFactor = (num) => {
     const ret = [];
     let p = 2;
-    while (p < num) {
+    const boundary = Math.sqrt(num);
+    while (p <= boundary) {
         if (num % p === 0) {
             num = num / p;
             ret.push(p);
@@ -14,8 +15,8 @@ const getPrimeFactor = (num) => {
             p++;
         }
     }
-    if (p > 1) {
-        ret.push(p);
+    if (num > 1) {
+        ret.push(num)
     }
     return ret;
 }
