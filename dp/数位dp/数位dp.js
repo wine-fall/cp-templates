@@ -34,6 +34,21 @@ var atMostNGivenDigitSet = function(digits, n) {
         memo.set(key, ret);
         return ret;
     };
+
+    // if `num1` is a string, get `+num1 - 1`
+    // num1 = [...num1];
+    // let i = num1.length - 1;
+    // while (i >= 0 && num1[i] === '0') {
+    //     i--;
+    // }
+    // num1[i] = String(+num1[i] - 1);
+    // i++;
+    // while (i < num1.length) {
+    //     num1[i] = '9';
+    //     i++;
+    // }
+    // num1 = num1.join('');
+
     const ans = dfs(0, 0, true, true);
     return ans;
 };
