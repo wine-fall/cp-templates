@@ -21,35 +21,32 @@ class BIT {
     }
 
     /**
-     * @param {number} num 
+     * @param {number} i 
      * @returns {number}
      */
-    lowbit(num) {
-        return num & -num;
+    lowbit(i) {
+        return i & -i;
     }
 
     /**
      * 
-     * @param {number} idx 
+     * @param {number} i 
      * @param {number} val 
      */
-    update(idx, val) {
-        const tmp = val - this.nums[idx];
-        this.nums[idx] = val;
-        let i = idx + 1;
+    update(i, val) {
+        this.nums[i] = val;
         while (i < this.tree.length) {
-            this.tree[i] += tmp;
+            this.tree[i] = val;
             i += this.lowbit(i);
         }
     }
 
     /**
-     * @param {number} idx 
+     * @param {number} i 
      * @returns {number}
      */
-    preSum(idx) {
+    preSum(i) {
         let sum = 0;
-        let i = idx + 1;
         while (i >= 1) {
             sum += this.tree[i];
             i -= this.lowbit(i);
