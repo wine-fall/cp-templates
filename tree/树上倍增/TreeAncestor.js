@@ -53,6 +53,7 @@ TreeAncestor.prototype.getKthAncestor = function(node, k) {
  * - 那么 x 到 y 的个数也就是 cnt[x] + cnt[y] - 2 * cnt[lca]
  * - 所以难点在于 m 次查询找 m 次 lca 的时间复杂度
  * - 这里使用树上倍增的方法可以降到 O(m * 32) 详见：tree/LCA/LCA.js
+ * - 如果求最值则不能用这个方法，详见提交记录
  */
 /**
  * @param {number} n
