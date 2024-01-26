@@ -65,7 +65,7 @@ TreeAncestor.prototype.getLCA = function(x, y) {
         y = tmp;
     }
     // 先让 x 和 y 处于同一层
-    y = this.getKthAncestor(y, this.depth[x] - this.depth[y]);
+    y = this.getKthAncestor(y, this.depth[y] - this.depth[x]);
     if (y === x) {
         return x;
     }

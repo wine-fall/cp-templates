@@ -44,3 +44,99 @@ TreeAncestor.prototype.getKthAncestor = function(node, k) {
     }
     return node;
 };
+
+
+/**
+ * t2846
+ * - 这题每次查询都是找 x, y 之间的个数
+ * - 假设我们知道 x, y之间的 lca (最近公共祖先)
+ * - 那么 x 到 y 的个数也就是 cnt[x] + cnt[y] - 2 * cnt[lca]
+ * - 所以难点在于 m 次查询找 m 次 lca 的时间复杂度
+ * - 这里使用树上倍增的方法可以降到 O(m * 32) 详见：tree/LCA/LCA.js
+ */
+/**
+ * @param {number} n
+ * @param {number[][]} edges
+ * @param {number[][]} queries
+ * @return {number[]}
+ */
+var minOperationsQueries = function(n, edges, queries) {
+    const g = Array(n).fill(0).map(() => Array());
+    const f = Array(n).fill(0).map(() => Array(32).fill(-1));
+    const cnt = Array(n).fill(-1);
+    const depth = Array(n).fill(0);
+    for (const [u, v, w] of edges) {
+        g[u].push([v, w]);
+        g[v].push([u, w]);
+    }
+
+    const dfs = (node, from, c, memo) => {
+        f[node][0] = from;
+        depth[node] = c;
+        cnt[node] = [...memo];
+        for (const [nxt, w] of g[node]) {
+            if (nxt === from) {
+                continue;
+            }
+            memo[w] += 1;
+            dfs(nxt, node, c + 1, memo);
+            memo[w] -= 1;
+        }
+    };
+    dfs(0, -1, 0, Array(27).fill(0));
+
+    for (let i = 0; i < 32; i++) {
+        for (let x = 0; x < n; x++) {
+            const p = f[x][i];
+            f[x][i + 1] = p < 0 ? -1 : f[p][i];
+        }
+    }
+
+    const getKthAncestor = (node, k) => {
+        for (let i = 0; i < 32; i++) {
+            if (k & (1 << i)) {
+                node = f[node][i];
+                if (node < 0) {
+                    break;
+                }
+            }
+        }
+        return node;
+    };
+
+    const lca = (x, y) => {
+        if (depth[x] > depth[y]) {
+            const tmp = x;
+            x = y;
+            y = tmp;
+        }
+        y = getKthAncestor(y, depth[y] - depth[x]);
+        if (x === y) {
+            return x;
+        }
+        for (let i = f[x].length - 1; i >= 0; i--) {
+            const px = f[x][i];
+            const py = f[y][i];
+            if (px !== py) {
+                x = px;
+                y = py;
+            }
+        }
+        return f[x][0];
+    };
+
+    const cal = (x, y) => {
+        const _lca = lca(x, y);
+        const v1 = depth[x] + depth[y] - 2 * depth[_lca];
+        let v2 = 0;
+        for (let i = 1; i <= 26; i++) {
+            v2 = Math.max(v2, cnt[x][i] + cnt[y][i] - 2 * cnt[_lca][i]);
+        }
+        return v1 - v2;
+    };
+    const ans = [];
+    for (const [x, y] of queries) {
+        ans.push(cal(x, y));
+    }
+    return ans;
+};
