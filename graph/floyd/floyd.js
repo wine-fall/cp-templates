@@ -20,7 +20,10 @@ var findTheCity = function(n, edges, distanceThreshold) {
         for (let i = 0; i < n; i++) {
             for (let j = 0; j < n; j++) {
                 f[k][i][j] = Math.min(
+                    // 不选 k，那么中间节点的编号都小于等于 k - 1，所以是 f[k-1][i][j]
                     f[k - 1][i][j],
+                    // 选 k，那么可以从 i 到 k（k - 1），再从 k（k - 1） 到 j（注意这两处的 k 要写成 k - 1，因为我们的 k 是从 1 开始遍历的）
+                    // 既然是从 i 到 k - 1，再从 k - 1 到 j，那么这两段中间的节点必然也是小于等于 k - 1的，所以是 f[k - 1][i][k - 1] + f[k - 1][k - 1][j]
                     f[k - 1][i][k - 1] + f[k - 1][k - 1][j]
                 );
             }
