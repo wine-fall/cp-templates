@@ -26,7 +26,7 @@ var subarrayBitwiseORs = function(arr) {
         ors.push([0, i]);
         ors[0][0] |= arr[i];
         let k = 0;
-        for (let j = 1; j < ors.length; j++) {
+        for (let j = 0; j < ors.length; j++) {
             ors[j][0] |= arr[i];
             if (ors[k][0] === ors[j][0]) {
                 ors[k][1] = Math.min(ors[k][1], ors[j][1]);
