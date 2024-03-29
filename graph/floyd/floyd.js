@@ -16,6 +16,7 @@ var findTheCity = function(n, edges, distanceThreshold) {
         g[b][a] = w;
     }
     f[0] = g;
+    // f[k][i][j] 表示 i 到 j 的路径中最大端点的值小于等于 k 时的最短路径 
     for (let k = 1; k <= n; k++) {
         for (let i = 0; i < n; i++) {
             for (let j = 0; j < n; j++) {
